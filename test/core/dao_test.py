@@ -21,14 +21,20 @@ class DAOTestCase(unittest.TestCase):
         self.dao = DAO(self.config)
         self.client = MongoClient()
         self.db = self.client[self.db_name]
-        self.db.drop_collection(self.users)
-        self.db.drop_collection(self.activities)
-        self.db.drop_collection(self.events)
+        try:
+            self.db.drop_collection(self.users)
+            self.db.drop_collection(self.activities)
+            self.db.drop_collection(self.events)
+        except:
+            pass
 
     def tearDown(self):
-        self.db.drop_collection(self.users)
-        self.db.drop_collection(self.activities)
-        self.db.drop_collection(self.events)
+        try:
+            self.db.drop_collection(self.users)
+            self.db.drop_collection(self.activities)
+            self.db.drop_collection(self.events)
+        except:
+            pass
 
     def test_setup(self):
         self.assertIsNotNone(self.dao)
