@@ -34,3 +34,9 @@ class DAOTestCase(unittest.TestCase):
         self.assertEquals(tmp.users, 'users')
         self.assertEquals(tmp.activities, 'activities')
         self.assertEquals(tmp.events, 'events')
+
+    def test_get_user(self):
+        u = self.dao.get_user('507f191e810c19729de860ea')
+        self.assertIsNone(u)
+        u = self.dao.get_user(None)
+        self.assertEquals(u.count(), 0)
