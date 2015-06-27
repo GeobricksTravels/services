@@ -1,5 +1,5 @@
 import unittest
-from pymongo import Connection
+from pymongo import MongoClient
 from a_la_romana_services.core.dao import DAO
 
 
@@ -19,14 +19,16 @@ class DAOTestCase(unittest.TestCase):
 
     def setUp(self):
         self.dao = DAO(self.config)
-        self.connection = Connection()
-        self.connection.drop_database(self.db_name)
-        self.connection.close()
+        self.client = MongoClient()
+        self.db = self.client[self.db_name]
+        self.db.drop_collection(self.users)
+        self.db.drop_collection(self.activities)
+        self.db.drop_collection(self.events)
 
     def tearDown(self):
-        self.connection = Connection()
-        self.connection.drop_database(self.db_name)
-        self.connection.close()
+        self.db.drop_collection(self.users)
+        self.db.drop_collection(self.activities)
+        self.db.drop_collection(self.events)
 
     def test_setup(self):
         self.assertIsNotNone(self.dao)
