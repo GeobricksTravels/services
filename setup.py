@@ -11,7 +11,7 @@ setup(
     long_description=open('README.md').read(),
     description='REST services for the "A-la Romana" project.',
     install_requires=[
-        'watchdog', 'flask', 'flask-cors'
+        'bson', 'watchdog', 'flask', 'flask-cors'
     ],
     url='http://pypi.python.org/pypi/a_la_romana_services/'
 )

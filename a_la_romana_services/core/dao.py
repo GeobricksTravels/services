@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from a_la_romana_services.core import utils
 
 
 class DAO:
@@ -31,6 +32,20 @@ class DAO:
             self.events = 'events'
         self.client = MongoClient()
         self.db = self.client[self.db_name]
+
+    def create_user(self, user):
+        if utils.is_valid_user(user):
+            collection = self.db[self.users]
+            try:
+                existing_user = self.get_user(user['_id'])
+            except KeyError:
+                return collection.insert(user)
+            if existing_user is None:
+                return collection.insert(user)
+            else:
+                raise Exception(409)
+        else:
+            raise Exception(400)
 
     def get_user(self, user_id):
         collection = self.db[self.users]
