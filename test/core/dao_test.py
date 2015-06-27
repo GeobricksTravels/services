@@ -21,20 +21,17 @@ class DAOTestCase(unittest.TestCase):
         self.dao = DAO(self.config)
         self.client = MongoClient()
         self.db = self.client[self.db_name]
-        try:
-            self.db.drop_collection(self.users)
-            self.db.drop_collection(self.activities)
-            self.db.drop_collection(self.events)
-        except:
-            pass
+        self.clean_db()
 
     def tearDown(self):
-        try:
-            self.db.drop_collection(self.users)
-            self.db.drop_collection(self.activities)
-            self.db.drop_collection(self.events)
-        except:
-            pass
+        self.clean_db()
+
+    def clean_db(self):
+        self.client = MongoClient() if self.client is None else self.client
+        self.db = self.client[self.db_name] if self.db is None else self.db
+        self.db.drop_collection(self.users)
+        self.db.drop_collection(self.activities)
+        self.db.drop_collection(self.events)
 
     def test_setup(self):
         self.assertIsNotNone(self.dao)
@@ -71,7 +68,7 @@ class DAOTestCase(unittest.TestCase):
         }
         self.dao.create_user(user)
 
-    def tes_get_user(self):
+    def test_get_user(self):
         u = self.dao.get_user('507f191e810c19729de860ea')
         self.assertIsNone(u)
         u = self.dao.get_user(None)
