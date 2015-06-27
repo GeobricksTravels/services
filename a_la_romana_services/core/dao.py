@@ -13,10 +13,22 @@ class DAO:
     db = None
 
     def __init__(self, config):
-        self.db_name = 'a_la_romana_db' if config['db_name'] is None else config['db_name']
-        self.users = 'users' if config['users'] is None else config['users']
-        self.activities = 'activities' if config['activities'] is None else config['activities']
-        self.events = 'events' if config['events'] is None else config['events']
+        try:
+            self.db_name = 'a_la_romana_db' if config['db_name'] is None else config['db_name']
+        except KeyError:
+            self.db_name = 'a_la_romana_db'
+        try:
+            self.users = 'users' if config['users'] is None else config['users']
+        except KeyError:
+            self.users = 'users'
+        try:
+            self.activities = 'activities' if config['activities'] is None else config['activities']
+        except KeyError:
+            self.activities = 'activities'
+        try:
+            self.events = 'events' if config['events'] is None else config['events']
+        except KeyError:
+            self.events = 'events'
         self.client = MongoClient()
         self.db = self.client[self.db_name]
 
