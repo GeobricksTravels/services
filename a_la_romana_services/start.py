@@ -3,15 +3,14 @@ from flask.ext.cors import CORS
 from a_la_romana_services.rest.dao_rest import dao_rest
 
 
-# Initialize the Flask app
-app = Flask(__name__)
-
-# Initialize CORS filters
-cors = CORS(app, resources={r'/*': {'origins': '*', 'headers': ['Content-Type']}})
-
-# Register Blueprint
-app.register_blueprint(dao_rest, url_prefix='/dao')
-
-# Start Flask server
-if __name__ == '__main__':
-    app.run(debug=True, threaded=True)
+app = Flask(__name__)                                   # pragma: no cover
+cors = CORS(app,                                        # pragma: no cover
+            resources={                                 # pragma: no cover
+                r'/*': {                                # pragma: no cover
+                    'origins': '*',                     # pragma: no cover
+                    'headers': ['Content-Type']         # pragma: no cover
+                }                                       # pragma: no cover
+            })                                          # pragma: no cover
+app.register_blueprint(dao_rest, url_prefix='/dao')     # pragma: no cover
+if __name__ == '__main__':                              # pragma: no cover
+    app.run(debug=True, threaded=True)                  # pragma: no cover
