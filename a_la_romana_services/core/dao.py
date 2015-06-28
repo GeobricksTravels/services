@@ -36,10 +36,7 @@ class DAO:
     def create_user(self, user):
         if utils.is_valid_user(user):
             collection = self.db[self.users]
-            try:
-                existing_user = self.get_user(user['_id'])
-            except KeyError:
-                return collection.insert(user)
+            existing_user = self.get_user(user['user_id'])
             if existing_user is None:
                 return collection.insert(user)
             else:
@@ -50,6 +47,6 @@ class DAO:
     def get_user(self, user_id):
         collection = self.db[self.users]
         if user_id is not None:
-            return collection.find_one({'_id': ObjectId(user_id)})
+            return collection.find_one({'user_id': user_id})
         else:
             return collection.find()

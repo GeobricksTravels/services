@@ -10,7 +10,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={r'/*': {'origins': '*', 'headers': ['Content-Type']}})
 
 # Register Blueprint
-app.register_blueprint(dao_rest, url_prefix='/rest')
+app.register_blueprint(dao_rest, url_prefix='/dao')
 
 # Start Flask server
 if __name__ == '__main__':

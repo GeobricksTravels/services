@@ -2,6 +2,7 @@ import json
 from flask import Blueprint
 from flask import request
 from flask import Response
+from flask import jsonify
 from bson import json_util
 from flask.ext.cors import cross_origin
 from a_la_romana_services.core.dao import DAO
@@ -10,6 +11,23 @@ from a_la_romana_services.config.settings import test_config
 
 
 dao_rest = Blueprint('dao_rest', __name__)
+
+
+class InvalidUsage(Exception):
+
+    status_code = 400
+
+    def __init__(self, message, status_code=None, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
 
 
 @dao_rest.route('/users/<config>/', methods=['GET'])
@@ -28,9 +46,18 @@ def get_users(config):
 def create_usr(config):
     dao = DAO(test_config) if config == 'test' else DAO(prod_config)
     user = json.loads(request.data)
-    user_id = dao.create_user(user)
-    users = json.dumps(user_id,
-                       sort_keys=True,
-                       indent=4,
-                       default=json_util.default)
-    return Response(users, content_type='application/json; charset=utf-8')
+    try:
+        user_id = dao.create_user(user)
+        users = json.dumps(user_id,
+                           sort_keys=True,
+                           indent=4,
+                           default=json_util.default)
+        return Response(users, content_type='application/json; charset=utf-8')
+    except Exception, e:
+        raise InvalidUsage('This view is gone', status_code=int(str(e)))
+
+@dao_rest.errorhandler(InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
