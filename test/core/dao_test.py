@@ -50,7 +50,12 @@ class DAOTestCase(unittest.TestCase):
         self.assertEquals(tmp.events, 'events')
 
     def test_create_user(self):
-        user = {"email": "someting@example.com"}
+        user = {
+            "user_id": "12345678",
+            "name": "John Doe",
+            "email": "something@test.com",
+            "image_url": "http://www.test.com/imege.jpg"
+        }
         user_id = self.dao.create_user(user)
         self.assertIsNotNone(user_id)
         user["id"] = user_id
@@ -64,6 +69,9 @@ class DAOTestCase(unittest.TestCase):
             self.assertEquals(int(str(e)), 400)
         user = {
             "_id": "507f191e810c19729de860ea",
+            "user_id": "12345678",
+            "name": "John Doe",
+            "image_url": "http://www.test.com/imege.jpg",
             "email": "someting@example.com"
         }
         self.dao.create_user(user)
