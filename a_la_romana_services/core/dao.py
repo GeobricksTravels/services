@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 from a_la_romana_services.core import utils
 
 
@@ -40,7 +39,7 @@ class DAO:
             if existing_user is None:
                 return collection.insert(user)
             else:
-                raise Exception(409)
+                return self.get_user(user['user_id'])
         else:
             raise Exception(400)
 

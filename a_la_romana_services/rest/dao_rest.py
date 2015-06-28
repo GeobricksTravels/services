@@ -8,26 +8,10 @@ from flask.ext.cors import cross_origin
 from a_la_romana_services.core.dao import DAO
 from a_la_romana_services.config.settings import config as prod_config
 from a_la_romana_services.config.settings import test_config
+from a_la_romana_services.core.utils import InvalidUsage
 
 
 dao_rest = Blueprint('dao_rest', __name__)
-
-
-class InvalidUsage(Exception):
-
-    status_code = 400
-
-    def __init__(self, message, status_code=None, payload=None):
-        Exception.__init__(self)
-        self.message = message
-        if status_code is not None:
-            self.status_code = status_code
-        self.payload = payload
-
-    def to_dict(self):
-        rv = dict(self.payload or ())
-        rv['message'] = self.message
-        return rv
 
 
 @dao_rest.route('/users/<config>/', methods=['GET'])
@@ -55,6 +39,7 @@ def create_usr(config):
         return Response(users, content_type='application/json; charset=utf-8')
     except Exception, e:
         raise InvalidUsage('This view is gone', status_code=int(str(e)))
+
 
 @dao_rest.errorhandler(InvalidUsage)
 def handle_invalid_usage(error):
