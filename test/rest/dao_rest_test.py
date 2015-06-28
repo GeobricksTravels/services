@@ -52,3 +52,7 @@ class DaoRestTest(unittest.TestCase):
         out = json.loads(response.data)
         self.assertIsNotNone(out)
         self.assertIsNotNone(out["$oid"])
+        response = self.tester.post('/rest/users/test/',
+                                        data=json.dumps({}),
+                                        content_type='application/json')
+        self.assertEquals(response.status_code, 400)

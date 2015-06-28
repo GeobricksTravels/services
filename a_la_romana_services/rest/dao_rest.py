@@ -38,7 +38,7 @@ def create_usr(config):
                            default=json_util.default)
         return Response(users, content_type='application/json; charset=utf-8')
     except Exception, e:
-        raise InvalidUsage('This view is gone', status_code=int(str(e)))
+        raise InvalidUsage('Invalid user.', status_code=int(str(e)))
 
 
 @dao_rest.errorhandler(InvalidUsage)
