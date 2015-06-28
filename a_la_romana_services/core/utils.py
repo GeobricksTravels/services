@@ -26,13 +26,13 @@ class InvalidUsage(Exception):
     status_code = 400
 
     def __init__(self, message, status_code=None, payload=None):
-        Exception.__init__(self)
-        self.message = message
-        if status_code is not None:
-            self.status_code = status_code
-        self.payload = payload
+        Exception.__init__(self)            # pragma: no cover
+        self.message = message              # pragma: no cover
+        if status_code is not None:         # pragma: no cover
+            self.status_code = status_code  # pragma: no cover
+        self.payload = payload              # pragma: no cover
 
     def to_dict(self):
-        rv = dict(self.payload or ())
-        rv['message'] = self.message
-        return rv
+        rv = dict(self.payload or ())       # pragma: no cover
+        rv['message'] = self.message        # pragma: no cover
+        return rv                           # pragma: no cover
