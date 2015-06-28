@@ -1,53 +1,40 @@
 import unittest
 from pymongo import MongoClient
 from a_la_romana_services.core.dao import DAO
+from a_la_romana_services.core.utils import clean_test_db
+from a_la_romana_services.config import settings as s
 
 
 class DAOTestCase(unittest.TestCase):
 
     dao = None
-    db_name = "a_la_romana_test_db"
-    users = "test_users"
-    activities = "test_activities"
-    events = "test_events"
-    config = {
-        "db_name": db_name,
-        "users": users,
-        "activities": activities,
-        "events": events
-    }
+    config = s.test_config
+    db_name = s.test_db_name
 
     def setUp(self):
         self.dao = DAO(self.config)
         self.client = MongoClient()
         self.db = self.client[self.db_name]
-        self.clean_db()
+        clean_test_db()
 
     def tearDown(self):
-        self.clean_db()
-
-    def clean_db(self):
-        self.client = MongoClient() if self.client is None else self.client
-        self.db = self.client[self.db_name] if self.db is None else self.db
-        self.db.drop_collection(self.users)
-        self.db.drop_collection(self.activities)
-        self.db.drop_collection(self.events)
+        clean_test_db()
 
     def test_setup(self):
         self.assertIsNotNone(self.dao)
         self.assertIsNotNone(self.dao.client)
         self.assertEquals(self.dao.db_name, self.db_name)
-        self.assertEquals(self.dao.users, self.users)
-        self.assertEquals(self.dao.activities, self.activities)
-        self.assertEquals(self.dao.events, self.events)
+        self.assertEquals(self.dao.users, self.config["users"])
+        self.assertEquals(self.dao.activities, self.config["activities"])
+        self.assertEquals(self.dao.events, self.config["events"])
         config = {}
         tmp = DAO(config)
         self.assertIsNotNone(tmp)
         self.assertIsNotNone(tmp.client)
-        self.assertEquals(tmp.db_name, 'a_la_romana_db')
-        self.assertEquals(tmp.users, 'users')
-        self.assertEquals(tmp.activities, 'activities')
-        self.assertEquals(tmp.events, 'events')
+        self.assertEquals(tmp.db_name, s.db_name)
+        self.assertEquals(tmp.users, s.users)
+        self.assertEquals(tmp.activities, s.activities)
+        self.assertEquals(tmp.events, s.events)
 
     def test_create_user(self):
         user = {
