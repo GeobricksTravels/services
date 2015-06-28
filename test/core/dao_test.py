@@ -61,7 +61,10 @@ class DAOTestCase(unittest.TestCase):
             "image_url": "http://www.test.com/imege.jpg",
             "email": "someting@example.com"
         }
-        self.dao.create_user(user)
+        try:
+            self.dao.create_user(user)
+        except Exception, e:
+            self.assertEquals(int(str(e)), 409)
 
     def test_get_user(self):
         u = self.dao.get_user('507f191e810c19729de860ea')
