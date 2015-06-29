@@ -12,5 +12,10 @@ cors = CORS(app,                                        # pragma: no cover
                 }                                       # pragma: no cover
             })                                          # pragma: no cover
 app.register_blueprint(dao_rest, url_prefix='/dao')     # pragma: no cover
+
+@app.route('/', methods=['GET'])
+def say_hello():
+    return 'hello?'
+
 if __name__ == '__main__':                              # pragma: no cover
     app.run(debug=True, threaded=True)                  # pragma: no cover
