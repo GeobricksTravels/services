@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.cors import CORS
 from a_la_romana_services.rest.dao_rest import dao_rest
+from a_la_romana_services.config.settings import test_config
 
 
 print 'init flask...'
@@ -8,7 +9,7 @@ app = Flask(__name__)                                   # pragma: no cover
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return str(test_config)
 
 print 'init cors...'
 cors = CORS(app,                                        # pragma: no cover
