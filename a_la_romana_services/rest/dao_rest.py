@@ -14,6 +14,16 @@ from a_la_romana_services.core.utils import InvalidUsage
 dao_rest = Blueprint('dao_rest', __name__)
 
 
+@dao_rest.route('/', methods=['GET'])
+@cross_origin(origins='*', headers=['Content-Type'])
+def say_hello():
+    users = json.dumps('Hello, World!',
+                       sort_keys=True,
+                       indent=4,
+                       default=json_util.default)
+    return Response(users, content_type='application/json; charset=utf-8')
+
+
 @dao_rest.route('/users/<config>/', methods=['GET'])
 @cross_origin(origins='*', headers=['Content-Type'])
 def get_users(config):
