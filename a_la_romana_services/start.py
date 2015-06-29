@@ -5,6 +5,11 @@ from a_la_romana_services.rest.dao_rest import dao_rest
 
 print 'init flask...'
 app = Flask(__name__)                                   # pragma: no cover
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
 print 'init cors...'
 cors = CORS(app,                                        # pragma: no cover
             resources={                                 # pragma: no cover
