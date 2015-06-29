@@ -11,6 +11,10 @@ app = Flask(__name__)                                   # pragma: no cover
 def hello():
     return str(test_config)
 
+@app.route("/pippo/")
+def hallo():
+    return str(test_config)
+
 print 'init cors...'
 cors = CORS(app,                                        # pragma: no cover
             resources={                                 # pragma: no cover
