@@ -1,6 +1,6 @@
-from flask import Flask
-from flask.ext.cors import CORS
-from services.rest.dao_rest import dao_rest
+from flask import Flask                                 # pragma: no cover
+from flask.ext.cors import CORS                         # pragma: no cover
+from services.rest.dao_rest import dao_rest             # pragma: no cover
 
 
 app = Flask(__name__)                                   # pragma: no cover

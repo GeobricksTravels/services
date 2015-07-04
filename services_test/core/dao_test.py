@@ -83,3 +83,7 @@ class DAOTestCase(unittest.TestCase):
         self.assertIsNotNone(user_id)
         out = self.dao.delete_user(user['user_id'])
         self.assertEquals(out['ok'], 1)
+        try:
+            self.dao.delete_user(user['user_id'])
+        except Exception, e:
+            self.assertEquals(int(str(e)), 404)
