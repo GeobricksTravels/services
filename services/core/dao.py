@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from a_la_romana_services.core import utils
+from services.core import utils
 
 
 class DAO:

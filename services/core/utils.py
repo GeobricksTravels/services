@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from a_la_romana_services.config import settings as s
+from services.config import settings as s
 
 
 db_name = "a_la_romana_test_db"

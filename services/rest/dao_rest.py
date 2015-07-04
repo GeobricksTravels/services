@@ -5,10 +5,10 @@ from flask import Response
 from flask import jsonify
 from bson import json_util
 from flask.ext.cors import cross_origin
-from a_la_romana_services.core.dao import DAO
-from a_la_romana_services.config.settings import config as prod_config
-from a_la_romana_services.config.settings import test_config
-from a_la_romana_services.core.utils import InvalidUsage
+from services.core.dao import DAO
+from services.config.settings import config as prod_config
+from services.config.settings import test_config
+from services.core.utils import InvalidUsage
 
 
 dao_rest = Blueprint('dao_rest', __name__)
