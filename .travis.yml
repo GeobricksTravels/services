@@ -8,6 +8,6 @@ install:
   - "pip install -e ."
 services: mongodb
 script:
-  - py.test --cov a_la_romana_services --cov-report term-missing
+  - py.test --cov services --cov-report term-missing
 after_success:
   - coveralls
