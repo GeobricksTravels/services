@@ -57,3 +57,14 @@ class DAO:
             return collection.remove({'user_id': existing_user['user_id']})
         else:
             raise Exception(404)
+
+    def update_user(self, user):
+        if utils.is_valid_user(user):
+            collection = self.db[self.users]
+            existing_user = self.get_user(user['user_id'])
+            if existing_user is not None:
+                return collection.update({'user_id': existing_user['user_id']}, user, upsert=False)
+            else:
+                raise Exception(404)
+        else:
+            raise Exception(400)

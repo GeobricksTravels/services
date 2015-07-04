@@ -87,3 +87,40 @@ class DAOTestCase(unittest.TestCase):
             self.dao.delete_user(user['user_id'])
         except Exception, e:
             self.assertEquals(int(str(e)), 404)
+
+    def test_update_user(self):
+        user = {
+            "user_id": "12345678",
+            "name": "John Doe",
+            "email": "something@test.com",
+            "image_url": "http://www.test.com/imege.jpg"
+        }
+        user_id = self.dao.create_user(user)
+        self.assertIsNotNone(user_id)
+        user = {
+            "user_id": "12345678",
+            "name": "edit",
+            "email": "edit",
+            "image_url": "edit"
+        }
+        out = self.dao.update_user(user)
+        self.assertEquals(out['ok'], 1)
+        updated_user = self.dao.get_user(user['user_id'])
+        self.assertIsNotNone(updated_user)
+        self.assertEquals(updated_user['name'], 'edit')
+        self.assertEquals(updated_user['email'], 'edit')
+        self.assertEquals(updated_user['image_url'], 'edit')
+        try:
+            self.dao.update_user({})
+        except Exception, e:
+            self.assertEquals(int(str(e)), 400)
+        user = {
+            "user_id": "123",
+            "name": "John Doe",
+            "email": "something@test.com",
+            "image_url": "http://www.test.com/imege.jpg"
+        }
+        try:
+            self.dao.update_user(user)
+        except Exception, e:
+            self.assertEquals(int(str(e)), 404)
