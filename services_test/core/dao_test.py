@@ -71,3 +71,15 @@ class DAOTestCase(unittest.TestCase):
         self.assertIsNone(u)
         u = self.dao.get_user(None)
         self.assertEquals(u.count(), 0)
+
+    def test_delete_user(self):
+        user = {
+            "user_id": "12345678",
+            "name": "John Doe",
+            "email": "something@test.com",
+            "image_url": "http://www.test.com/imege.jpg"
+        }
+        user_id = self.dao.create_user(user)
+        self.assertIsNotNone(user_id)
+        out = self.dao.delete_user(user['user_id'])
+        self.assertEquals(out['ok'], 1)

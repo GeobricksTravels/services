@@ -49,3 +49,11 @@ class DAO:
             return collection.find_one({'user_id': user_id})
         else:
             return collection.find()
+
+    def delete_user(self, user_id):
+        existing_user = self.get_user(user_id)
+        if existing_user is not None:
+            collection = self.db[self.users]
+            return collection.remove({'user_id': existing_user['user_id']})
+        else:
+            raise Exception(404)
