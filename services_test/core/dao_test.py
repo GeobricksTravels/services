@@ -1,8 +1,8 @@
 import unittest
 from pymongo import MongoClient
-from a_la_romana_services.core.dao import DAO
-from a_la_romana_services.core.utils import clean_test_db
-from a_la_romana_services.config import settings as s
+from services.core.dao import DAO
+from services.core.utils import clean_test_db
+from services.config import settings as s
 
 
 class DAOTestCase(unittest.TestCase):

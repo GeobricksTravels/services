@@ -2,9 +2,9 @@ import json
 import unittest
 from flask import Flask
 from pymongo import MongoClient
-from a_la_romana_services.rest.dao_rest import dao_rest
-from a_la_romana_services.core.utils import clean_test_db
-from a_la_romana_services.config import settings as s
+from services.rest.dao_rest import dao_rest
+from services.core.utils import clean_test_db
+from services.config import settings as s
 
 
 class DaoRestTest(unittest.TestCase):

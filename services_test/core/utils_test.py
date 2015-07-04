@@ -1,5 +1,5 @@
 import unittest
-from a_la_romana_services.core import utils
+from services.core import utils
 
 
 class UtilsTestCase(unittest.TestCase):
