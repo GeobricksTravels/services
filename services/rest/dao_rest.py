@@ -63,6 +63,17 @@ def get_single_event(event_id, config):
     return Response(events, content_type='application/json; charset=utf-8')
 
 
+@dao_rest.route('/activities/<event_id>/<config>/', methods=['GET'])
+@cross_origin(origins='*', headers=['Content-Type'])
+def get_activities(event_id, config):
+    dao = DAO(test_config) if config == 'test' else DAO(prod_config)
+    activities = json.dumps([_activity for _activity in dao.get_activity(event_id)],
+                            sort_keys=True,
+                            indent=4,
+                            default=json_util.default)
+    return Response(activities, content_type='application/json; charset=utf-8')
+
+
 @dao_rest.errorhandler(InvalidUsage)
 def handle_invalid_usage(error):
     response = jsonify(error.to_dict())

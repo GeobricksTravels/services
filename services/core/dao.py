@@ -76,3 +76,10 @@ class DAO:
             return collection.find_one({'_id': ObjectId(event_id)})
         else:
             return collection.find()
+
+    def get_activity(self, event_id):
+        collection = self.db[self.activities]
+        if event_id is not None:
+            return collection.find({'event_id': event_id})
+        else:
+            return collection.find()

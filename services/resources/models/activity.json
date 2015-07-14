@@ -1,0 +1,14 @@
+{
+  "event_id": "55a514498583e613dbcd4295",
+  "name": "Cena da Felice",
+  "total": 42.00,
+  "location": "Da Felice, Piazza Testaccio 12, 00100, Rome, Italy",
+  "users": [
+    {
+      "image_url" : "https://lh6.googleusercontent.com/-gyepR6c40CA/AAAAAAAAAAI/AAAAAAAAgbI/diVZ4y9lnYI/s96-c/photo.jpg",
+      "user_id" : "114164147389238758581",
+      "name" : "Guido Barbaglia",
+      "email" : "guido.barbaglia@gmail.com"
+    }
+  ]
+}
