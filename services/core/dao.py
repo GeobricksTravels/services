@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from services.core import utils
+from bson.objectid import ObjectId
 
 
 class DAO:
@@ -68,3 +69,10 @@ class DAO:
                 raise Exception(404)
         else:
             raise Exception(400)
+
+    def get_event(self, event_id):
+        collection = self.db[self.events]
+        if event_id is not None:
+            return collection.find_one({'_id': ObjectId(event_id)})
+        else:
+            return collection.find()

@@ -41,6 +41,17 @@ def create_usr(config):
         raise InvalidUsage('Invalid user.', status_code=int(str(e)))
 
 
+@dao_rest.route('/events/<config>/', methods=['GET'])
+@cross_origin(origins='*', headers=['Content-Type'])
+def get_events(config):
+    dao = DAO(test_config) if config == 'test' else DAO(prod_config)
+    events = json.dumps([_event for _event in dao.get_event(None)],
+                        sort_keys=True,
+                        indent=4,
+                        default=json_util.default)
+    return Response(events, content_type='application/json; charset=utf-8')
+
+
 @dao_rest.errorhandler(InvalidUsage)
 def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
