@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from services.config import settings as s
+from spartimm_services.config import settings as s
 
 
 db_name = "a_la_romana_test_db"

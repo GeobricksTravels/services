@@ -1,5 +1,5 @@
 import unittest
-from services.core import utils
+from spartimm_services.core import utils
 
 
 class UtilsTestCase(unittest.TestCase):

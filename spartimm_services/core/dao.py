@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-from services.core import utils
+from spartimm_services.core import utils
+from spartimm_services.config import settings
 from bson.objectid import ObjectId
 
 
@@ -15,21 +16,21 @@ class DAO:
 
     def __init__(self, config):
         try:
-            self.db_name = 'a_la_romana_db' if config['db_name'] is None else config['db_name']
+            self.db_name = settings.db_name if config['db_name'] is None else config['db_name']
         except KeyError:
-            self.db_name = 'a_la_romana_db'
+            self.db_name = settings.db_name
         try:
-            self.users = 'users' if config['users'] is None else config['users']
+            self.users = settings.users if config['users'] is None else config['users']
         except KeyError:
-            self.users = 'users'
+            self.users = settings.users
         try:
-            self.activities = 'activities' if config['activities'] is None else config['activities']
+            self.activities = settings.activities if config['activities'] is None else config['activities']
         except KeyError:
-            self.activities = 'activities'
+            self.activities = settings.activities
         try:
-            self.events = 'events' if config['events'] is None else config['events']
+            self.events = settings.events if config['events'] is None else config['events']
         except KeyError:
-            self.events = 'events'
+            self.events = settings.events
         self.client = MongoClient()
         self.db = self.client[self.db_name]
 

@@ -5,10 +5,10 @@ from flask import Response
 from flask import jsonify
 from bson import json_util
 from flask.ext.cors import cross_origin
-from services.core.dao import DAO
-from services.config.settings import config as prod_config
-from services.config.settings import test_config
-from services.core.utils import InvalidUsage
+from spartimm_services.core.dao import DAO
+from spartimm_services.config.settings import config as prod_config
+from spartimm_services.config.settings import test_config
+from spartimm_services.core.utils import InvalidUsage
 
 
 dao_rest = Blueprint('dao_rest', __name__)

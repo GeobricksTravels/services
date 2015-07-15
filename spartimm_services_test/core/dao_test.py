@@ -1,8 +1,8 @@
 import unittest
 from pymongo import MongoClient
-from services.core.dao import DAO
-from services.core.utils import clean_test_db
-from services.config import settings as s
+from spartimm_services.core.dao import DAO
+from spartimm_services.core.utils import clean_test_db
+from spartimm_services.config import settings as s
 
 
 class DAOTestCase(unittest.TestCase):

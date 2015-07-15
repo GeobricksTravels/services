@@ -2,9 +2,9 @@ import json
 import unittest
 from flask import Flask
 from pymongo import MongoClient
-from services.rest.dao_rest import dao_rest
-from services.core.utils import clean_test_db
-from services.config import settings as s
+from spartimm_services.rest.dao_rest import dao_rest
+from spartimm_services.core.utils import clean_test_db
+from spartimm_services.config import settings as s
 
 
 class DaoRestTest(unittest.TestCase):
@@ -53,6 +53,6 @@ class DaoRestTest(unittest.TestCase):
         self.assertIsNotNone(out)
         self.assertIsNotNone(out["$oid"])
         response = self.tester.post('/rest/users/test/',
-                                        data=json.dumps({}),
-                                        content_type='application/json')
+                                    data=json.dumps({}),
+                                    content_type='application/json')
         self.assertEquals(response.status_code, 400)
