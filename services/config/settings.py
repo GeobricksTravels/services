@@ -1,4 +1,4 @@
-db_name = "a_la_romana_db"
+db_name = "spartimm_db"
 users = "users"
 activities = "activities"
 events = "events"
@@ -10,7 +10,7 @@ config = {
     "events": events
 }
 
-test_db_name = "a_la_romana_test_db"
+test_db_name = "spartimm_test_db"
 test_users = "test_users"
 test_activities = "test_activities"
 test_events = "test_events"
