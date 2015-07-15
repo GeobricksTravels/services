@@ -13,6 +13,11 @@ def is_valid_user(user):
     return all(key in user for key in keys)
 
 
+def is_valid_event(event):
+    keys = ['name', 'date_last_update', 'users', 'status', 'total']
+    return all(key in event for key in keys)
+
+
 def clean_test_db():
     client = MongoClient()
     db = client[s.test_db_name]

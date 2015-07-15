@@ -52,6 +52,23 @@ def get_events(config):
     return Response(events, content_type='application/json; charset=utf-8')
 
 
+@dao_rest.route('/events/<config>/', methods=['POST'])
+@cross_origin(origins='*', headers=['Content-Type'])
+def create_event(config):
+    dao = DAO(test_config) if config == 'test' else DAO(prod_config)
+    event = json.loads(request.data)
+    print event
+    try:
+        event_id = dao.create_event(event)
+        events = json.dumps(event_id,
+                            sort_keys=True,
+                            indent=4,
+                            default=json_util.default)
+        return Response(events, content_type='application/json; charset=utf-8')
+    except Exception, e:
+        raise InvalidUsage('Invalid event.', status_code=int(str(e)))
+
+
 @dao_rest.route('/events/<event_id>/<config>/', methods=['GET'])
 @cross_origin(origins='*', headers=['Content-Type'])
 def get_single_event(event_id, config):

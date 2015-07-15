@@ -78,6 +78,18 @@ class DAO:
         else:
             return collection.find()
 
+    def create_event(self, event):
+        if utils.is_valid_event(event):
+            collection = self.db[self.events]
+            try:
+                existing_event = self.get_event(event['_id'])
+            except KeyError:
+                return collection.insert(event)
+            if 'pymongo.cursor.Cursor' in str(type(existing_event)):
+                return collection.insert(event)
+        else:
+            raise Exception(400)
+
     def get_activity(self, event_id):
         collection = self.db[self.activities]
         if event_id is not None:
